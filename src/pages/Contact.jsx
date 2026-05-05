@@ -1,7 +1,7 @@
 import { useState } from "react";
-import emailjs from "emailjs-com";
-
+import emailjs from "@emailjs/browser";
 const Connect = () => {
+  console.log("EMAILJS KEY:", import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -52,32 +52,30 @@ const Connect = () => {
 
     emailjs.send(
       import.meta.env.VITE_EMAILJS_SERVICE,
-      import.meta.env.VITE_EMAILJS_TEMPLATE,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_CONNECT,
       templateParams,
       import.meta.env.VITE_EMAILJS_PUBLIC_KEY
     )
-      .then(
-        () => {
-          setSuccess(true);
-          setForm({
-            name: "",
-            email: "",
-            phone: "",
-            date: "",
-            type: "",
-            time: "",
-            venue: "",
-            capacity: "",
-          });
+    .then(() => {
+      setSuccess(true);
 
-          setTimeout(() => setSuccess(false), 5000);
-        },
-        () => {
-          setSuccess(false);
-        }
-      );
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        date: "",
+        type: "",
+        time: "",
+        venue: "",
+        capacity: "",
+      });
+
+      setTimeout(() => setSuccess(false), 5000);
+    })
+    .catch((err) => {
+      console.log("EMAIL ERROR:", err);
+    });
   };
-
   return (
     <div className="px-10 py-24 bg-[#faf7f5]">
 
