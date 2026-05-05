@@ -21,7 +21,7 @@ const Reviews = () => {
 
     emailjs.send(
       import.meta.env.VITE_EMAILJS_SERVICE,
-      "template_24uu6bt",
+      import.meta.env.VITE_EMAILJS_TEMPLATE_REVIEW,
       {
         name: form.name,
         message: form.message,
